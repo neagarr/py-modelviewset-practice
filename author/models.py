@@ -10,7 +10,6 @@ class Author(models.Model):
 
     class Meta:
         ordering = ("first_name", "last_name",)
-        verbose_name_plural = "authors"
 
     def __str__(self):
         return self.first_name

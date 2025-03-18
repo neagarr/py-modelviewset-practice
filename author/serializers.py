@@ -3,6 +3,7 @@ from author.models import Author
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField(max_length=64)
     last_name = serializers.CharField(max_length=64)
     pseudonym = serializers.CharField(
@@ -14,10 +15,15 @@ class AuthorSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField()
     retired = serializers.BooleanField()
 
+    class Meta:
+        model = Author
+        fields = ("id", "first_name", "last_name", "pseudonym", "age", "retired")
+
     def create(self, validated_data):
         return Author.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
+        instance.id = validated_data.get('id', instance.id)
         instance.first_name = validated_data.get(
             "first_name",
             instance.first_name

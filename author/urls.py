@@ -7,7 +7,7 @@ app_name = "author"
 
 router = routers.DefaultRouter()
 router.register("authors", AuthorViewSet)
-# Create your urls here
+
 
 urlpatterns = [
     path("", include(router.urls)),
